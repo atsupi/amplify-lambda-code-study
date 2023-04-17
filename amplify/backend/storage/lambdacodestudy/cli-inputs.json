@@ -1,0 +1,13 @@
+{
+  "resourceName": "lambdacodestudy",
+  "policyUUID": "d24fb98a",
+  "bucketName": "amplifylambdacodestu04d156ccd50d4ee4b51f2f8735c",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ],
+  "triggerFunction": "S3Trigger25d0c812",
+  "groupAccess": {}
+}
