@@ -23,6 +23,12 @@
       },
       "storage": {
         "lambdacodestudy": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "dmuybqsyq1f39",
+          "type": "cicd"
+        }
       }
     }
   }
