@@ -28,8 +28,22 @@
   "function": {
     "S3Trigger25d0c812": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "amplifylambdacodestuapplayer"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "amplifylambdacodestuapplayer": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer"
     }
   },
   "hosting": {
@@ -53,6 +67,22 @@
         {
           "category": "function",
           "resourceName": "S3Trigger25d0c812"
+        }
+      ]
+    },
+    "AMPLIFY_function_amplifylambdacodestuapplayer_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "amplifylambdacodestuapplayer"
+        }
+      ]
+    },
+    "AMPLIFY_function_amplifylambdacodestuapplayer_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "amplifylambdacodestuapplayer"
         }
       ]
     },

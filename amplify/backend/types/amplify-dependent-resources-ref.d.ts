@@ -17,6 +17,9 @@ export type AmplifyDependentResourcesAttributes = {
       "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
+    },
+    "amplifylambdacodestuapplayer": {
+      "Arn": "string"
     }
   },
   "storage": {

@@ -18,7 +18,11 @@
       "function": {
         "S3Trigger25d0c812": {
           "deploymentBucketName": "amplify-amplifylambdacodestu-dev-234553-deployment",
-          "s3Key": "amplify-builds/S3Trigger25d0c812-54555742454362654e5a-build.zip"
+          "s3Key": "amplify-builds/S3Trigger25d0c812-424a4132634f51766936-build.zip"
+        },
+        "amplifylambdacodestuapplayer": {
+          "deploymentBucketName": "amplify-amplifylambdacodestu-dev-234553-deployment",
+          "s3Key": "amplify-builds/amplifylambdacodestuapplayer-LambdaLayerVersiondec95802-build.zip"
         }
       },
       "storage": {

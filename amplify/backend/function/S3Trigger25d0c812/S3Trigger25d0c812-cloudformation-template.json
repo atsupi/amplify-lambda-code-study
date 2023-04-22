@@ -10,6 +10,14 @@
     },
     "s3Key": {
       "Type": "String"
+    },
+    "functionamplifylambdacodestuapplayerArn": {
+      "Type": "String",
+      "Default": "functionamplifylambdacodestuapplayerArn"
+    },
+    "storagelambdacodestudyBucketName": {
+      "Type": "String",
+      "Default": "storagelambdacodestudyBucketName"
     }
   },
   "Conditions": {
@@ -53,6 +61,12 @@
           "Variables": {
             "ENV": {
               "Ref": "env"
+            },
+            "REGION": {
+              "Ref": "AWS::Region"
+            },
+            "STORAGE_LAMBDACODESTUDY_BUCKETNAME": {
+              "Ref": "storagelambdacodestudyBucketName"
             }
           }
         },
@@ -63,7 +77,7 @@
           ]
         },
         "Runtime": "nodejs16.x",
-        "Timeout": 25,
+        "Timeout": 80,
         "Code": {
           "S3Bucket": {
             "Ref": "deploymentBucketName"
@@ -71,7 +85,12 @@
           "S3Key": {
             "Ref": "s3Key"
           }
-        }
+        },
+        "Layers": [
+          {
+            "Ref": "functionamplifylambdacodestuapplayerArn"
+          }
+        ]
       }
     },
     "LambdaExecutionRole": {
@@ -151,6 +170,64 @@
                   }
                 ]
               }
+            }
+          ]
+        }
+      }
+    },
+    "AmplifyResourcesPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "amplify-lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": "s3:ListBucket",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:s3:::",
+                      {
+                        "Ref": "storagelambdacodestudyBucketName"
+                      }
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObject"
+              ],
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:s3:::",
+                      {
+                        "Ref": "storagelambdacodestudyBucketName"
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
             }
           ]
         }
