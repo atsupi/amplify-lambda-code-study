@@ -46,39 +46,11 @@
       "service": "LambdaLayer"
     }
   },
-  "hosting": {},
-  "parameters": {
-    "AMPLIFY_function_S3Trigger25d0c812_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "S3Trigger25d0c812"
-        }
-      ]
-    },
-    "AMPLIFY_function_S3Trigger25d0c812_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "S3Trigger25d0c812"
-        }
-      ]
-    },
-    "AMPLIFY_function_amplifylambdacodestuapplayer_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "amplifylambdacodestuapplayer"
-        }
-      ]
-    },
-    "AMPLIFY_function_amplifylambdacodestuapplayer_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "amplifylambdacodestuapplayer"
-        }
-      ]
+  "hosting": {
+    "amplifyhosting": {
+      "lastPushTimeStamp": "2023-04-23T14:45:48.316Z",
+      "service": "amplifyhosting",
+      "type": "cicd"
     }
   },
   "storage": {
