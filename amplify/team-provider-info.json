@@ -1,15 +1,15 @@
 {
-  "dev": {
+  "main": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-amplifylambdacodestu-dev-234553-authRole",
-      "UnauthRoleArn": "arn:aws:iam::074682543290:role/amplify-amplifylambdacodestu-dev-234553-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::074682543290:role/amplify-amplifylambdacodestu-dev-234553-authRole",
+      "AuthRoleName": "amplify-amplifylambdacodestu-main-224737-authRole",
+      "UnauthRoleArn": "arn:aws:iam::074682543290:role/amplify-amplifylambdacodestu-main-224737-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::074682543290:role/amplify-amplifylambdacodestu-main-224737-authRole",
       "Region": "ap-northeast-1",
-      "DeploymentBucketName": "amplify-amplifylambdacodestu-dev-234553-deployment",
-      "UnauthRoleName": "amplify-amplifylambdacodestu-dev-234553-unauthRole",
-      "StackName": "amplify-amplifylambdacodestu-dev-234553",
-      "StackId": "arn:aws:cloudformation:ap-northeast-1:074682543290:stack/amplify-amplifylambdacodestu-dev-234553/8ff5fb10-dd2e-11ed-9ce7-0617954eff63",
-      "AmplifyAppId": "dmuybqsyq1f39"
+      "DeploymentBucketName": "amplify-amplifylambdacodestu-main-224737-deployment",
+      "UnauthRoleName": "amplify-amplifylambdacodestu-main-224737-unauthRole",
+      "StackName": "amplify-amplifylambdacodestu-main-224737",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:074682543290:stack/amplify-amplifylambdacodestu-main-224737/6ae22160-e1dd-11ed-84e8-0aa53bdb87e3",
+      "AmplifyAppId": "d3vttb8tbdzc01"
     },
     "categories": {
       "auth": {
@@ -17,22 +17,16 @@
       },
       "function": {
         "S3Trigger25d0c812": {
-          "deploymentBucketName": "amplify-amplifylambdacodestu-dev-234553-deployment",
+          "deploymentBucketName": "amplify-amplifylambdacodestu-main-224737-deployment",
           "s3Key": "amplify-builds/S3Trigger25d0c812-69584e726450624d7730-build.zip"
         },
         "amplifylambdacodestuapplayer": {
-          "deploymentBucketName": "amplify-amplifylambdacodestu-dev-234553-deployment",
-          "s3Key": "amplify-builds/amplifylambdacodestuapplayer-LambdaLayerVersiondec95802-build.zip"
+          "deploymentBucketName": "amplify-amplifylambdacodestu-main-224737-deployment",
+          "s3Key": "amplify-builds/amplifylambdacodestuapplayer-LambdaLayerVersion45a29823-build.zip"
         }
       },
       "storage": {
         "lambdacodestudy": {}
-      },
-      "hosting": {
-        "amplifyhosting": {
-          "appId": "dmuybqsyq1f39",
-          "type": "cicd"
-        }
       }
     }
   }

@@ -32,7 +32,7 @@ exports.handler = async function (event) {
   if (extension !== "mp4" && extension !== "mov")
     return;
   
-  let thumbnailKey = "thumbnail/" + filename + 'gif';
+  let thumbnailKey = "thumbnail/" + filename + '.gif';
   let duration = 0;
 
   process.env.PATH += ':/var/opt/bin';
