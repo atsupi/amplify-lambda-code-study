@@ -26,10 +26,13 @@ exports.handler = async function (event) {
   const bucket = event.Records[0].s3.bucket.name;
   const key = event.Records[0].s3.object.key;
   const filename = key.split('/')[key.split('/').length - 1].split('.')[0];
+  const extension = key.split('/')[key.split('/').length - 1].split('.')[1];
   console.log(`Bucket: ${bucket}`, `Key: ${key}`, `filename: ${filename}`);
- 
-  let signedUrl = "";
-  let thumbnailUrl = "";
+
+  if (extension !== "mp4" && extension !== "mov")
+    return;
+  
+  let thumbnailKey = "thumbnail/" + filename + 'gif';
   let duration = 0;
 
   process.env.PATH += ':/var/opt/bin';
@@ -68,7 +71,7 @@ exports.handler = async function (event) {
     });
     const putParams = {
       Bucket: bucket,
-      Key: filename + '.gif',
+      Key: thumbnailKey,
       Body: fileStream,
       ContentType: 'image/gif'
     }
@@ -81,7 +84,7 @@ exports.handler = async function (event) {
     Result: 200,
     Backet: bucket,
     Key: key,
-    Thumbnail: filename + '.gif',
+    Thumbnail: thumbnailKey,
     Duration: duration
   }
 }
