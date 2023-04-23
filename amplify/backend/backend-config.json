@@ -1,4 +1,30 @@
 {
+  "api": {
+    "amplifylambdacodestu": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "amplifylambdacodestu76a2d1ef"
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authamplifylambdacodestu76a2d1ef"
+            }
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
   "auth": {
     "amplifylambdacodestu76a2d1ef": {
       "customAuth": false,
@@ -51,6 +77,56 @@
       "lastPushTimeStamp": "2023-04-23T14:45:48.316Z",
       "service": "amplifyhosting",
       "type": "cicd"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_S3Trigger25d0c812_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger25d0c812"
+        }
+      ]
+    },
+    "AMPLIFY_function_S3Trigger25d0c812_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger25d0c812"
+        }
+      ]
+    },
+    "AMPLIFY_function_amplifylambdacodestuapplayer_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "amplifylambdacodestuapplayer"
+        }
+      ]
+    },
+    "AMPLIFY_function_amplifylambdacodestuapplayer_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "amplifylambdacodestuapplayer"
+        }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_appId": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
+        }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_type": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
+        }
+      ]
     }
   },
   "storage": {

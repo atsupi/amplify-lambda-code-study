@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { API, graphqlOperation } from "aws-amplify";
+import { listContentLists } from "./graphql/queries";
+import { ContentList } from "./API";
+import { Authenticator } from "@aws-amplify/ui-react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [contentList, setContentList] = useState<Array<ContentList>>();
+
+  const getAllContentList = async () => {
+    const allContentList = await API.graphql(
+      graphqlOperation(listContentLists)
+    );
+    return allContentList;
+  };
+  useEffect(() => {
+    getAllContentList().then((data) => {
+      console.log(data.data.listContentLists.items);
+      setContentList(data.data.listContentLists.items);
+    });
+  }, []);
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React + TypeScript</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <>
+      <Authenticator>
+        <div className="App">
+          {contentList &&
+            contentList.map((item) => {
+              return (
+                <>
+                  <p>{item.id}</p>
+                  <p>{item.bucket}</p>
+                  <p>{item.key}</p>
+                  <p>{item.thumbnailFile}</p>
+                  <p>{item.duration}</p>
+                </>
+              );
+            })}
+        </div>
+      </Authenticator>
+    </>
+  );
 }
 
-export default App
+export default App;

@@ -1,0 +1,7 @@
+type ContentList @model(timestamps: null) @auth (rules: [{allow: private, operations: [read, create, update, delete]}]) {
+  id: ID!
+  bucket: String!
+  key: String!
+  thumbnailFile: String!
+  duration: String!
+}

@@ -33,6 +33,9 @@
           "appId": "d3vttb8tbdzc01",
           "type": "cicd"
         }
+      },
+      "api": {
+        "amplifylambdacodestu": {}
       }
     }
   }

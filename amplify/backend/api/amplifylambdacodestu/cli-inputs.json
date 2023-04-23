@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "amplifylambdacodestu",
+    "serviceName": "AppSync",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authamplifylambdacodestu76a2d1ef"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": []
+  }
+}
