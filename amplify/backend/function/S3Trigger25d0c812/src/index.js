@@ -71,7 +71,7 @@ exports.handler = async function (event) {
     });
     const putParams = {
       Bucket: bucket,
-      Key: thumbnailKey,
+      Key: 'public/' + thumbnailKey,
       Body: fileStream,
       ContentType: 'image/gif'
     }
