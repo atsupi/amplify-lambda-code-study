@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import { API, graphqlOperation } from "aws-amplify";
 import { listContentLists } from "./graphql/queries";
 import { ContentList } from "./API";
 import { Authenticator } from "@aws-amplify/ui-react";
+import { ContentItem } from "./ContentItem";
+
+type AltItem = {
+  id: string;
+  bucket: string;
+  key: string;
+  thumbnailFile: string;
+  duration: string;
+  thumbnailUrl: string;
+};
 
 function App() {
-  const [count, setCount] = useState(0);
   const [contentList, setContentList] = useState<Array<ContentList>>();
 
   const getAllContentList = async () => {
@@ -19,7 +26,6 @@ function App() {
   };
   useEffect(() => {
     getAllContentList().then((data) => {
-      console.log(data.data.listContentLists.items);
       setContentList(data.data.listContentLists.items);
     });
   }, []);
@@ -30,13 +36,23 @@ function App() {
         <div className="App">
           {contentList &&
             contentList.map((item) => {
+              const alt_item: AltItem = {
+                ...item,
+                thumbnailUrl: "",
+              };
+              // const alt_item: AltItem  = {
+              //   id: item.id,
+              //   key: item.key,
+              //   bucket: item.bucket,
+              //   duration: item.duration,
+              //   thumbnailFile: item.thumbnailFile,
+              //   thumbnailUrl: ""
+              // }
               return (
                 <>
-                  <p>{item.id}</p>
-                  <p>{item.bucket}</p>
-                  <p>{item.key}</p>
-                  <p>{item.thumbnailFile}</p>
-                  <p>{item.duration}</p>
+                  <div className="Item_Wrapper" key={alt_item.id}>
+                    <ContentItem item={alt_item} key={alt_item.id}/>
+                  </div>
                 </>
               );
             })}
