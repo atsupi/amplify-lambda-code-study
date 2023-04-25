@@ -5,15 +5,7 @@ import { listContentLists } from "./graphql/queries";
 import { ContentList } from "./API";
 import { Authenticator } from "@aws-amplify/ui-react";
 import { ContentItem } from "./ContentItem";
-
-type AltItem = {
-  id: string;
-  bucket: string;
-  key: string;
-  thumbnailFile: string;
-  duration: string;
-  thumbnailUrl: string;
-};
+import { AltItem } from "./types";
 
 function App() {
   const [contentList, setContentList] = useState<Array<ContentList>>();
@@ -25,8 +17,9 @@ function App() {
     return allContentList;
   };
   useEffect(() => {
-    getAllContentList().then((data) => {
-      setContentList(data.data.listContentLists.items);
+    getAllContentList().then((data: {data: {listContentLists: {items: Array<ContentList>} } } | any ) => {
+      if ( data )
+        setContentList(data.data.listContentLists.items);
     });
   }, []);
 

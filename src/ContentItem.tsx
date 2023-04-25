@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Storage } from 'aws-amplify';
-import { ContentList } from "./API";
+import { AltItem } from "./types";
 
 type S3KeyParams = {
   Key: string;
@@ -13,7 +13,7 @@ async function getPresignedUrl(params: S3KeyParams) {
 }
 
 type Props = {
-  item: ContentList;
+  item: AltItem;
 }
 
 export const ContentItem = (props: Props): JSX.Element => {
