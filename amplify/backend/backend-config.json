@@ -57,6 +57,13 @@
       "dependsOn": [
         {
           "attributes": [
+            "GraphQLAPIIdOutput"
+          ],
+          "category": "api",
+          "resourceName": "amplifylambdacodestu"
+        },
+        {
+          "attributes": [
             "Arn"
           ],
           "category": "function",

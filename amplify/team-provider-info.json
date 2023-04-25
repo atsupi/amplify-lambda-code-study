@@ -18,7 +18,7 @@
       "function": {
         "S3Trigger25d0c812": {
           "deploymentBucketName": "amplify-amplifylambdacodestu-main-224737-deployment",
-          "s3Key": "amplify-builds/S3Trigger25d0c812-32676e7a314f41447531-build.zip"
+          "s3Key": "amplify-builds/S3Trigger25d0c812-30713167556f386b4f4b-build.zip"
         },
         "amplifylambdacodestuapplayer": {
           "deploymentBucketName": "amplify-amplifylambdacodestu-main-224737-deployment",

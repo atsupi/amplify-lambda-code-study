@@ -7,5 +7,15 @@
       "isLatestVersionSelected": true,
       "env": "main"
     }
-  ]
+  ],
+  "permissions": {
+    "storage": {
+      "ContentList:@model(appsync)": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  }
 }

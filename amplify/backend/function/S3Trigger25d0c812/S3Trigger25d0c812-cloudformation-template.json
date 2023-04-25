@@ -18,6 +18,10 @@
     "storagelambdacodestudyBucketName": {
       "Type": "String",
       "Default": "storagelambdacodestudyBucketName"
+    },
+    "apiamplifylambdacodestuGraphQLAPIIdOutput": {
+      "Type": "String",
+      "Default": "apiamplifylambdacodestuGraphQLAPIIdOutput"
     }
   },
   "Conditions": {
@@ -67,6 +71,35 @@
             },
             "STORAGE_LAMBDACODESTUDY_BUCKETNAME": {
               "Ref": "storagelambdacodestudyBucketName"
+            },
+            "API_AMPLIFYLAMBDACODESTU_CONTENTLISTTABLE_NAME": {
+              "Fn::ImportValue": {
+                "Fn::Sub": "${apiamplifylambdacodestuGraphQLAPIIdOutput}:GetAtt:ContentListTable:Name"
+              }
+            },
+            "API_AMPLIFYLAMBDACODESTU_CONTENTLISTTABLE_ARN": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:aws:dynamodb:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":table/",
+                  {
+                    "Fn::ImportValue": {
+                      "Fn::Sub": "${apiamplifylambdacodestuGraphQLAPIIdOutput}:GetAtt:ContentListTable:Name"
+                    }
+                  }
+                ]
+              ]
+            },
+            "API_AMPLIFYLAMBDACODESTU_GRAPHQLAPIIDOUTPUT": {
+              "Ref": "apiamplifylambdacodestuGraphQLAPIIdOutput"
             }
           }
         },
@@ -192,38 +225,61 @@
           "Statement": [
             {
               "Effect": "Allow",
-              "Action": "s3:ListBucket",
-              "Resource": [
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:aws:s3:::",
-                      {
-                        "Ref": "storagelambdacodestudyBucketName"
-                      }
-                    ]
-                  ]
-                }
-              ]
-            },
-            {
-              "Effect": "Allow",
               "Action": [
-                "s3:PutObject",
-                "s3:GetObject",
-                "s3:DeleteObject"
+                "dynamodb:Put*",
+                "dynamodb:Create*",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:Get*",
+                "dynamodb:BatchGetItem",
+                "dynamodb:List*",
+                "dynamodb:Describe*",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:Update*",
+                "dynamodb:RestoreTable*",
+                "dynamodb:Delete*"
               ],
               "Resource": [
                 {
                   "Fn::Join": [
                     "",
                     [
-                      "arn:aws:s3:::",
+                      "arn:aws:dynamodb:",
                       {
-                        "Ref": "storagelambdacodestudyBucketName"
+                        "Ref": "AWS::Region"
                       },
-                      "/*"
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":table/",
+                      {
+                        "Fn::ImportValue": {
+                          "Fn::Sub": "${apiamplifylambdacodestuGraphQLAPIIdOutput}:GetAtt:ContentListTable:Name"
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:dynamodb:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":table/",
+                      {
+                        "Fn::ImportValue": {
+                          "Fn::Sub": "${apiamplifylambdacodestuGraphQLAPIIdOutput}:GetAtt:ContentListTable:Name"
+                        }
+                      },
+                      "/index/*"
                     ]
                   ]
                 }
