@@ -1,15 +1,17 @@
 /* Amplify Params - DO NOT EDIT
-	API_AMPLIFYLAMBDACODESTU_CONTENTLISTTABLE_ARN
-	API_AMPLIFYLAMBDACODESTU_CONTENTLISTTABLE_NAME
-	API_AMPLIFYLAMBDACODESTU_GRAPHQLAPIIDOUTPUT
-	ENV
-	REGION
+  API_AMPLIFYLAMBDACODESTU_CONTENTLISTTABLE_ARN
+  API_AMPLIFYLAMBDACODESTU_CONTENTLISTTABLE_NAME
+  API_AMPLIFYLAMBDACODESTU_GRAPHQLAPIIDOUTPUT
+  ENV
+  REGION
 Amplify Params - DO NOT EDIT */
 
 
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 const fs = require('fs');
+const docClient = new AWS.DynamoDB.DocumentClient();
+const tableName = process.env.API_AMPLIFYLAMBDACODESTU_CONTENTLISTTABLE_NAME;
 
 exports.handler = async function (event) {
   console.log('Received S3 event:', JSON.stringify(event, null, 2));
@@ -21,7 +23,26 @@ exports.handler = async function (event) {
 
   if (extension !== "mp4" && extension !== "mov")
     return;
-  
+
+  {
+    const params = {
+      TableName: tableName
+    }
+    try {
+      const data = await docClient.scan(params).promise()
+      console.log("Table", JSON.stringify(data));
+      for (let i = 0; i < data.Count; i++) {
+        console.log(i);
+        if (data.Items[i].key === filename + '.' + extension) {
+          console.log(`Key ${data.Items[i].key} exists already.`);
+          return;
+        }
+      }
+    } catch (err) {
+      return { error: err }
+    }
+  }
+
   let thumbnailKey = "thumbnail/" + filename + '.gif';
   let duration = 0;
 
@@ -37,6 +58,7 @@ exports.handler = async function (event) {
   }
   const uploadedData = await s3.getObject(getParams).promise().catch((err) => {
     console.log(err);
+    return { error: err }
   });
   fs.writeFileSync('/tmp/' + filename + '.' + extension, uploadedData.Body);
 
@@ -55,9 +77,9 @@ exports.handler = async function (event) {
     console.log(stdout.toString());
     const fs = require('fs');
     const fileStream = fs.createReadStream('/tmp/' + filename + '.gif');
-    fileStream.on('error', function(error) {
-          console.log(error);
-          throw new Error(error);
+    fileStream.on('error', function (error) {
+      console.log(error);
+      throw new Error(error);
     });
     const putParams = {
       Bucket: bucket,
@@ -67,7 +89,28 @@ exports.handler = async function (event) {
     }
     await s3.putObject(putParams).promise().catch((err) => {
       console.log(err);
+      return { error: err }
     });
+  }
+
+  const id = new Date().getTime().toString();
+  const dbWriteParams = {
+    TableName: tableName,
+    /* Item properties will depend on your application concerns */
+    Item: {
+      id: id,
+      bucket: bucket,
+      key: filename + '.' + extension,
+      thumbnailFile: thumbnailKey,
+      duration: duration,
+      __typename: "ContentList"
+    }
+  }
+
+  try {
+    await docClient.put(dbWriteParams).promise();
+  } catch (err) {
+    return { error: err }
   }
 
   return {

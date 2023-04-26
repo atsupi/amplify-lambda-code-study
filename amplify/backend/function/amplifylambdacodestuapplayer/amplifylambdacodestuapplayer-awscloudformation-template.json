@@ -20,7 +20,7 @@
     }
   },
   "Resources": {
-    "LambdaLayerVersionec05975b": {
+    "LambdaLayerVersion05170245": {
       "Type": "AWS::Lambda::LayerVersion",
       "Properties": {
         "CompatibleRuntimes": [
@@ -30,9 +30,9 @@
           "S3Bucket": {
             "Ref": "deploymentBucketName"
           },
-          "S3Key": "amplify-builds/amplifylambdacodestuapplayer-LambdaLayerVersionec05975b-build.zip"
+          "S3Key": "amplify-builds/amplifylambdacodestuapplayer-LambdaLayerVersion05170245-build.zip"
         },
-        "Description": "Updated layer version 2023-04-25T23:27:29.117Z",
+        "Description": "Updated layer version 2023-04-26T14:38:32.959Z",
         "LayerName": {
           "Fn::Sub": [
             "amplifylambdacodestuapplayer-${env}",
@@ -47,11 +47,11 @@
       "DeletionPolicy": "Delete",
       "UpdateReplacePolicy": "Retain"
     },
-    "LambdaLayerPermissionPublicec05975b": {
+    "LambdaLayerPermissionPublic05170245": {
       "Type": "AWS::Lambda::LayerVersionPermission",
       "Properties": {
         "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": "arn:aws:lambda:ap-northeast-1:074682543290:layer:amplifylambdacodestuapplayer-main:12",
+        "LayerVersionArn": "arn:aws:lambda:ap-northeast-1:074682543290:layer:amplifylambdacodestuapplayer-main:13",
         "Principal": "*"
       }
     }
@@ -59,7 +59,7 @@
   "Outputs": {
     "Arn": {
       "Value": {
-        "Ref": "LambdaLayerVersionec05975b"
+        "Ref": "LambdaLayerVersion05170245"
       }
     }
   }

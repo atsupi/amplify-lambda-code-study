@@ -111,6 +111,7 @@
         },
         "Runtime": "nodejs16.x",
         "Timeout": 140,
+        "MemorySize": "256",
         "Code": {
           "S3Bucket": {
             "Ref": "deploymentBucketName"
