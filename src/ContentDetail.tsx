@@ -36,7 +36,7 @@ export function ContentDetail() {
       <p>{contentList?.key}</p>
       {url !== "" && (
         <div className="Video_Wrapper">
-          <video controls playsInline src={url} itemType="video/mp4">
+          <video controls playsInline src={url} itemType="video/mp4" width="300" height="400">
             Not supported format
           </video>{" "}
           : `${contentList?.key}
