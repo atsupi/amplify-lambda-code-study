@@ -1,29 +1,20 @@
 import { useEffect, useState } from "react";
-import { Storage } from 'aws-amplify';
 import { AltItem } from "./types";
-
-type S3KeyParams = {
-  Key: string;
-  Bucket: string;
-};
-
-async function getPresignedUrl(params: S3KeyParams) {
-  const presignedUrl = Storage.get(params.Key, {level: "public"});
-  return presignedUrl;
-}
+import { NavLink } from "react-router-dom";
+import { S3KeyParams, getPresignedUrl } from "./Utils";
 
 type Props = {
   item: AltItem;
-}
+};
 
 export const ContentItem = (props: Props): JSX.Element => {
   const [url, setUrl] = useState("");
-  const {item} = props;
+  const { item } = props;
 
   useEffect(() => {
     const param: S3KeyParams = {
       Bucket: item.bucket,
-      Key: item.thumbnailFile
+      Key: item.thumbnailFile,
     };
     getPresignedUrl(param).then((data) => {
       setUrl(data);
@@ -33,13 +24,16 @@ export const ContentItem = (props: Props): JSX.Element => {
   return (
     <>
       <div className="Item">
+        <p>{item.indexNum}</p>
         <p>{item.id}</p>
         <p>{item.bucket}</p>
         <p>{item.key}</p>
         <p>{item.thumbnailFile}</p>
         <p>{item.duration}</p>
-        {url ? <img src={url} width="120" height="160" /> : <p>No Image</p>}
+        <NavLink to={`/detail/${item.indexNum}`}>
+          {url ? <img src={url} width="120" height="160" /> : <p>No Image</p>}
+        </NavLink>
       </div>
     </>
-  )
-}
+  );
+};
