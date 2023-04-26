@@ -11,18 +11,6 @@ const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 const fs = require('fs');
 
-async function getPresignedUrl(params) {
-  return new Promise((resolve, reject) => {
-    s3.getSignedUrl('getObject', params, (err, url) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(url);
-      }
-    });
-  })
-}
-
 exports.handler = async function (event) {
   console.log('Received S3 event:', JSON.stringify(event, null, 2));
   const bucket = event.Records[0].s3.bucket.name;
@@ -50,11 +38,11 @@ exports.handler = async function (event) {
   const uploadedData = await s3.getObject(getParams).promise().catch((err) => {
     console.log(err);
   });
-  fs.writeFileSync('/tmp/' + key, uploadedData.Body);
+  fs.writeFileSync('/tmp/' + filename + '.' + extension, uploadedData.Body);
 
   {
     const execSync = require('child_process').execSync;
-    const stdout = execSync('ffprobe -i ' + '/tmp/' + key + ' -hide_banner -show_entries format=duration');
+    const stdout = execSync('ffprobe -i ' + '/tmp/' + filename + '.' + extension + ' -hide_banner -show_entries format=duration');
     console.log(stdout.toString());
     const data = stdout.toString().split('=');
     console.log(data);
@@ -63,7 +51,7 @@ exports.handler = async function (event) {
   }
   {
     const execSync = require('child_process').execSync;
-    const stdout = execSync('ffmpeg -ss 00:00:03 -i ' + '/tmp/' + key + ' -frames:v 1 /tmp/' + filename + '.gif -y');
+    const stdout = execSync('ffmpeg -ss 00:00:03 -i ' + '/tmp/' + filename + '.' + extension + ' -frames:v 1 /tmp/' + filename + '.gif -y');
     console.log(stdout.toString());
     const fs = require('fs');
     const fileStream = fs.createReadStream('/tmp/' + filename + '.gif');
